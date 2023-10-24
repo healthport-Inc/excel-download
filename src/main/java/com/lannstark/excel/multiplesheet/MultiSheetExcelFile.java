@@ -4,6 +4,7 @@ import com.lannstark.excel.SXSSFExcelFile;
 import com.lannstark.resource.DataFormatDecider;
 import org.apache.commons.compress.archivers.zip.Zip64Mode;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -24,6 +25,7 @@ public class MultiSheetExcelFile<T> extends SXSSFExcelFile<T> {
 	public MultiSheetExcelFile(Class<T> type) {
 		super(type);
 		wb.setZip64Mode(Zip64Mode.Always);
+		renderExcel(Collections.emptyList());
 	}
 
 	/*
@@ -33,11 +35,13 @@ public class MultiSheetExcelFile<T> extends SXSSFExcelFile<T> {
 	public MultiSheetExcelFile(List<T> data, Class<T> type) {
 		super(data, type);
 		wb.setZip64Mode(Zip64Mode.Always);
+		renderExcel(data);
 	}
 
 	public MultiSheetExcelFile(List<T> data, Class<T> type, DataFormatDecider dataFormatDecider) {
 		super(data, type, dataFormatDecider);
 		wb.setZip64Mode(Zip64Mode.Always);
+		renderExcel(data);
 	}
 
 	@Override
@@ -55,7 +59,7 @@ public class MultiSheetExcelFile<T> extends SXSSFExcelFile<T> {
 
 	@Override
 	public void addRows(List<T> data) {
-		for (Object renderedData : data) {
+		for (T renderedData : data) {
 			renderBody(renderedData, currentRowIndex++, COLUMN_START_INDEX);
 			if (currentRowIndex == maxRowCanBeRendered) {
 				currentRowIndex = 1;

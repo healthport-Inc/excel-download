@@ -3,6 +3,7 @@ package com.lannstark.excel.onesheet;
 import com.lannstark.excel.SXSSFExcelFile;
 import com.lannstark.resource.DataFormatDecider;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -21,14 +22,17 @@ public final class OneSheetExcelFile<T> extends SXSSFExcelFile<T> {
 
 	public OneSheetExcelFile(Class<T> type) {
 		super(type);
+		renderExcel(Collections.emptyList());
 	}
 
 	public OneSheetExcelFile(List<T> data, Class<T> type) {
 		super(data, type);
+		renderExcel(data);
 	}
 
 	public OneSheetExcelFile(List<T> data, Class<T> type, DataFormatDecider dataFormatDecider) {
 		super(data, type, dataFormatDecider);
+		renderExcel(data);
 	}
 
 	@Override

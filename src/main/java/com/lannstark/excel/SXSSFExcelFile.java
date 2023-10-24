@@ -55,7 +55,7 @@ public abstract class SXSSFExcelFile<T> implements ExcelFile<T> {
 		validateData(data);
 		this.wb = new SXSSFWorkbook();
 		this.resource = ExcelRenderResourceFactory.prepareRenderResource(type, wb, dataFormatDecider);
-		renderExcel(data);
+//		renderExcel(data);
 	}
 
 	protected void validateData(List<T> data) { }
@@ -72,7 +72,7 @@ public abstract class SXSSFExcelFile<T> implements ExcelFile<T> {
 		}
 	}
 
-	protected void renderBody(Object data, int rowIndex, int columnStartIndex) {
+	protected void renderBody(T data, int rowIndex, int columnStartIndex) {
 		Row row = sheet.createRow(rowIndex);
 		int columnIndex = columnStartIndex;
 		for (String dataFieldName : resource.getDataFieldNames()) {
